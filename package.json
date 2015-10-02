@@ -1,0 +1,8 @@
+{
+	"name": "facebook_integration_spike",
+	"version": "0.0.1",
+	"main": "index.js",
+	"scripts": {
+		"start": "electron ."
+	}
+}

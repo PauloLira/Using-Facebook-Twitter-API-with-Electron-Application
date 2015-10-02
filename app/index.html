@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Facebook Twitter Integration Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="css/fontawesome/css/font-awesome.min.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/application.css" media="screen">
+</head>
+<body>
+	<script type="text/javascript">
+		var ipc = require("ipc");
+		var clickFacebookButton = function() {
+			ipc.send("facebook-button-clicked", "yes");
+		};
+	</script>
+  <div class="row">
+    <div class="col-sm-4 well">
+      <button class="btn btn-primary" id="facebook-button" onclick="clickFacebookButton();">Sign in with Facebook</button><br><br>
+			<button class="btn btn-danger" id="twitter-button">Sign in with Twitter</button>
+    </div>
+		<div class="col-sm-4 well" id="access-token">
+		</div>
+  </div>
+</body>
+</html>
