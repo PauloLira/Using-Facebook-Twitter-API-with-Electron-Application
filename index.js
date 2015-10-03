@@ -1,5 +1,6 @@
 var app = require('app');
 var ipc = require('ipc');
+var FB = require('fb');
 var BrowserWindow = require('browser-window');
 var mainWindow = null;
 
@@ -29,8 +30,13 @@ app.on('ready', function () {
       var raw_code = /access_token=([^&]*)/.exec(newUrl) || null;
       access_token = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
       error = /\?error=(.+)$/.exec(newUrl);
-      console.log("Access Token: "+ access_token);
       if(access_token) {
+        FB.setAccessToken(access_token);
+        FB.api('/me', { fields: ['id', 'name', 'picture.width(800).height(800)'] }, function (res) {
+          mainWindow.webContents.executeJavaScript("document.getElementById(\"fb-name\").innerHTML = \" Name: " + res.name + "\"");
+          mainWindow.webContents.executeJavaScript("document.getElementById(\"fb-id\").innerHTML = \" ID: " + res.id + "\"");
+          mainWindow.webContents.executeJavaScript("document.getElementById(\"fb-dp\").src = \"" + res.picture.data.url + "\"");
+        });
         authWindow.close();
       }
     });

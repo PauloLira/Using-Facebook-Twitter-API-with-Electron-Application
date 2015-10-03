@@ -9,7 +9,7 @@
 <body>
 	<script type="text/javascript">
 		var ipc = require("ipc");
-		var clickFacebookButton = function() {
+		var clickFacebookButton = function () {
 			ipc.send("facebook-button-clicked", "yes");
 		};
 	</script>
@@ -18,7 +18,11 @@
       <button class="btn btn-primary" id="facebook-button" onclick="clickFacebookButton();">Sign in with Facebook</button><br><br>
 			<button class="btn btn-danger" id="twitter-button">Sign in with Twitter</button>
     </div>
-		<div class="col-sm-4 well" id="access-token">
+		<div class="col-sm-4 well" id="facebook-profile">
+			<table class="table table-bordered">
+				<tr><td rowspan="2" style='width:128px;height:128px;'><img src="img/avatar.jpg" id="fb-dp"></img></td><td id="fb-name"></td></tr>
+				<tr><td id="fb-id"></td></tr>
+			</table>
 		</div>
   </div>
 </body>
