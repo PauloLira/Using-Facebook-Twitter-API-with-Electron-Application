@@ -1,8 +1,33 @@
 {
-	"name": "facebook_integration_spike",
-	"version": "0.0.1",
-	"main": "index.js",
-	"scripts": {
-		"start": "electron ."
-	}
+  "name": "facebook_integration_spike",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {
+    "electron-prebuilt": "^0.33.4",
+    "fb": "^0.7.3",
+    "node-twitter-api": ""
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "description": "A Spike to validate wether we can use Facebook & Twitter API with Electron and to find the limitations of it.",
+  "dependencies": {
+    "electron-prebuilt": "~0.33.4",
+    "fb": "~0.7.3",
+    "node-twitter-api": "~1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nageshpodilapu/Using-Facebook-Twitter-API-with-Electron-Application.git"
+  },
+  "keywords": [
+    "Electron",
+    "Facebook",
+    "OAuth"
+  ],
+  "author": "H4rryp0tt3r",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/nageshpodilapu/Using-Facebook-Twitter-API-with-Electron-Application/issues"
+  }
 }

@@ -1,6 +1,15 @@
 var app = require('app');
 var ipc = require('ipc');
 var FB = require('fb');
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+var twitterAPI = require('node-twitter-api');
+var twitter = new twitterAPI({
+    consumerKey: 'pwcgi6F2Iat8B6sxbqBHDTod0',
+    consumerSecret: 'IlSHOiH28fWCtSYRnKe5AolTCfMhCxmqoDOMoNAmorpVzLbfRC',
+    requestToken: '',
+    callback: 'oob'
+});
 var BrowserWindow = require('browser-window');
 var mainWindow = null;
 
@@ -39,6 +48,30 @@ app.on('ready', function () {
         });
         authWindow.close();
       }
+    });
+  });
+
+  ipc.on("twitter-button-clicked", function (event, arg) {
+    var oAuthRequestToken;
+    var oAuthRequestTokenSecret;
+    twitter.getRequestToken(function (error, requestToken, requestTokenSecret, results) {
+      if (error) {
+        console.log("Error occured while fetching oAuth Request Token..");
+      }
+      else {
+        oAuthRequestToken = requestToken;
+        oAuthRequestTokenSecret = requestTokenSecret;
+        eventEmitter.emit('got-request-token');
+      }
+    });
+    eventEmitter.on("got-request-token", function () {
+      var twitterAuthWindow = new BrowserWindow({ width: 700, height: 480, show: false, 'node-integration': false });
+      var twitterAuthURL = "https://twitter.com/oauth/authenticate?oauth_token="+ oAuthRequestToken;
+      twitterAuthWindow.loadUrl(twitterAuthURL);
+      twitterAuthWindow.show();
+      twitterAuthWindow.webContents.on('did-get-response-details', function (event, oldUrl, newUrl) {
+        console.log("Specified: " + newUrl);
+      });
     });
   });
 });
